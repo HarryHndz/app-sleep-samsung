@@ -1,0 +1,47 @@
+import { StyleSheet, View } from "react-native"
+import { Input, InputProps } from "@rneui/themed"
+import { useThemeColor } from "@/hooks/useThemeColor"
+import { useState } from "react"
+
+interface ThemedInput extends InputProps{
+  typePassword?:boolean
+}
+export const ThemedInput =({typePassword=false,onBlur,...props}:ThemedInput)=>{
+  const theme = useThemeColor()
+  const [focusable,setFocusable] = useState<boolean>(false)
+  return(
+    <View>
+      <Input 
+        containerStyle={style.container}
+        inputContainerStyle={[
+          {backgroundColor:theme.title},
+          focusable ? {borderRadius:7,borderWidth:2,borderColor:theme.tint} : {borderRadius:7}
+        ]}
+        labelStyle={{color:theme.title,marginVertical:5}}
+        inputStyle={{borderColor:'red'}}
+        placeholderTextColor={theme.text}
+        secureTextEntry={typePassword}
+        errorStyle={{color:'red'}}
+        onFocus={()=> setFocusable(!focusable)}
+        onBlur={()=>{
+          setFocusable(!focusable)
+          onBlur
+        }}
+        {...props}
+      />
+    </View>
+  )
+}
+
+const style = StyleSheet.create({
+  container:{
+    width:'auto',
+    height:'auto'
+  },
+  input:{
+    backgroundColor:'blue',
+    borderRadius:5,
+    borderColor:'white',
+    borderLeftColor:'white'
+  },
+})
