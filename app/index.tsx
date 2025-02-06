@@ -38,6 +38,11 @@ export default function Login() {
             onChangeText={(text)=> setFieldValue('password',text)}
             errorMessage={errors.password}
           />
+          <Button 
+            title='Ingresar'
+            onPress={()=> router.replace('/(tabs)/home')}
+            loading={isSubmitting}
+        />
         </View>
       )}
       </Formik>
