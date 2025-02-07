@@ -3,16 +3,15 @@ import { Input, InputProps } from "@rneui/themed"
 import { useThemeColor } from "@/hooks/useThemeColor"
 import { useState } from "react"
 
-interface ThemedInput extends InputProps{
+interface ThemedInputProps extends InputProps{
   typePassword?:boolean
 }
-export const ThemedInput =({typePassword=false,onBlur,...props}:ThemedInput)=>{
+export const ThemedInput =({typePassword=false,onBlur,...props}:ThemedInputProps)=>{
   const theme = useThemeColor()
   const [focusable,setFocusable] = useState<boolean>(false)
   return(
     <View>
       <Input 
-        containerStyle={style.container}
         inputContainerStyle={[
           {backgroundColor:theme.title},
           focusable ? {borderRadius:7,borderWidth:2,borderColor:theme.tint} : {borderRadius:7}
@@ -25,7 +24,6 @@ export const ThemedInput =({typePassword=false,onBlur,...props}:ThemedInput)=>{
         onFocus={()=> setFocusable(!focusable)}
         onBlur={()=>{
           setFocusable(!focusable)
-          onBlur
         }}
         {...props}
       />
@@ -33,15 +31,3 @@ export const ThemedInput =({typePassword=false,onBlur,...props}:ThemedInput)=>{
   )
 }
 
-const style = StyleSheet.create({
-  container:{
-    width:'auto',
-    height:'auto'
-  },
-  input:{
-    backgroundColor:'blue',
-    borderRadius:5,
-    borderColor:'white',
-    borderLeftColor:'white'
-  },
-})

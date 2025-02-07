@@ -1,6 +1,6 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { Dimensions, StyleSheet, Text } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import {ProgressChart} from 'react-native-chart-kit'
 import { Divider } from "@rneui/themed";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';

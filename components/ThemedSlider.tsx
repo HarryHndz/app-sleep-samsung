@@ -2,17 +2,17 @@ import { Slider } from "@rneui/themed"
 import { View } from "react-native"
 import { ThemedText } from "./ThemedText"
 import Icon from '@expo/vector-icons/MaterialIcons'
-import { useState } from "react"
 
 interface PropsThemedSlider {
+  value?:number,
+  onChange:(value:number)=>void
   label:string
   min?:number
   max?:number
   step?:number
 }
 
-export const ThemedSlider = ({label,max=10,min=0,step=1}:PropsThemedSlider)=>{
-  const [value,setValue] = useState<number>(0)
+export const ThemedSlider = ({label,onChange,value=1,max=10,min=0,step=1}:PropsThemedSlider)=>{
   const interpolate = (start: number, end: number) => {
     let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
     return Math.ceil((1 - k) * start + k * end) % 256;
@@ -28,9 +28,9 @@ export const ThemedSlider = ({label,max=10,min=0,step=1}:PropsThemedSlider)=>{
       <ThemedText type='text'>{label}</ThemedText>
       <Slider 
         value={value}
-        onValueChange={setValue}
-        maximumValue={min}
-        minimumValue={max}
+        onValueChange={onChange}
+        maximumValue={max}
+        minimumValue={min}
         step={step}
         allowTouchTrack
         trackStyle={{ height: 5, backgroundColor: 'transparent' }}

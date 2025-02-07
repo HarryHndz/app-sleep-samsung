@@ -1,4 +1,4 @@
-import { Image, ImageStyle, StyleSheet, TextStyle, ViewStyle } from "react-native"
+import { Image, ImageStyle, StyleSheet, ViewStyle } from "react-native"
 import { ThemedView } from "@/components/ThemedView"
 import { ThemedText } from "@/components/ThemedText"
 

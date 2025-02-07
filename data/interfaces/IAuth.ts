@@ -11,7 +11,7 @@ export interface IRegister extends IAuth{
   weight:string,
   gender:string,
   caffeine?:number,
-  smoke?:boolean
-  drink?:boolean
+  smoke:boolean
+  drink:boolean
   excercise?:number
 }

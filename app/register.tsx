@@ -1,13 +1,16 @@
-import { ThemedInput } from "@/components/Input";
+import { ThemedInput } from "@/components/ThemedInput";
 import { ThemedSlider } from "@/components/ThemedSlider";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IRegister } from "@/data/interfaces/IAuth";
-import { CheckBox, Divider } from "@rneui/themed";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { Button, CheckBox, Divider } from "@rneui/themed";
 import { Formik } from "formik";
-import { View } from "react-native";
+import { Dimensions, View } from "react-native";
 
 export default function Register() {
+  const width = (Dimensions.get('window').width * 85) /100
+  const theme = useThemeColor()
   const initialValues:IRegister = {
     name:'',
     password:'',
@@ -23,78 +26,92 @@ export default function Register() {
   const handleSubmit = async()=>{}
   const handleValidate = ()=>{}
   return(
-    <ThemedView>
-      <ThemedText type="text"></ThemedText>
-      <Formik 
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={handleValidate}
-      >
-        {({isSubmitting,handleBlur,handleChange,handleReset,setFieldValue,errors,values})=>(
-          <View>
+    <ThemedView style={{flex:1,width:'100%',height:'100%',
+      backgroundColor:theme.header,
+      flexDirection:'column',alignItems:'center',
+      justifyContent:'center',
+    }}>
+      <View style={{backgroundColor:theme.background,width:'90%',padding:'5%',borderRadius:25}}>
+        <ThemedText type="title" style={{textAlign:'center',paddingVertical:2}}>Registro</ThemedText>
+        <Formik 
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          // validationSchema={handleValidate}
+        >
+          {({isSubmitting,handleBlur,handleChange,handleReset,setFieldValue,errors,values})=>(
             <View>
-              <ThemedInput 
-                label='Nombre completo'
-                placeholder='Ingrese su nombre'
-                onChangeText={handleChange('')}
-                onBlur={handleBlur('')}
-              />
-              <ThemedInput 
-                label='correo'
-                placeholder='Ingrese un correo'
-                onChangeText={handleChange('')}
-                onBlur={handleBlur('')}
-              />
-              <ThemedInput 
-                label='correo'
-                placeholder='Ingrese un correo'
-                onChangeText={handleChange('')}
-                onBlur={handleBlur('')}
-              />
-              <ThemedInput 
-                label='contraseña'
-                placeholder='Ingrese una contraseña'
-                onChangeText={handleChange('')}
-                onBlur={handleBlur('')}
-              />
-              <ThemedInput 
-                label='Edad'
-                placeholder='Ingrese su edad'
-                onChangeText={handleChange('')}
-                onBlur={handleBlur('')}
-              />
-              <ThemedInput 
-                label='Peso'
-                placeholder='Ingrese su edad'
-                onChangeText={handleChange('')}
-                onBlur={handleBlur('')}
+              <View>
+                <ThemedInput 
+                  label='Nombre completo'
+                  placeholder='Ingrese su nombre'
+                  onChangeText={handleChange('name')}
+                  onBlur={handleBlur('name')}
+                />
+                <ThemedInput 
+                  label='correo'
+                  placeholder='Ingrese un correo'
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                />
+                <ThemedInput 
+                  label='contraseña'
+                  placeholder='Ingrese una contraseña'
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                />
+                <View style={{flexDirection:'row',width:'100%',height:'auto'}}>
+                <ThemedInput 
+                  label='Edad'
+                  placeholder='Ingrese su edad'
+                  onChangeText={handleChange('age')}
+                  onBlur={handleBlur('age')}
+                  containerStyle={{width:(width/2)}}
+                />
+                <ThemedInput 
+                  label='Peso'
+                  placeholder='Ingrese su edad'
+                  onChangeText={handleChange('weight')}
+                  onBlur={handleBlur('weight')}
+                  containerStyle={{width:(width/2)}}
+                />
+                </View>
+              </View>
+              <Divider />
+              <View style={{marginVertical:10}}>
+                <ThemedSlider
+                  value={values.caffeine}
+                  onChange={(value)=>setFieldValue('caffeine',value)}  
+                  label="¿Qué tanta cafeina consume del 1 al 100?"
+                />
+                <CheckBox 
+                  title='¿Toma alcohol?'
+                  checked={values.drink}
+                  onPress={()=>setFieldValue('age',!values.drink)}
+                  containerStyle={{backgroundColor:theme.background}}
+                  textStyle={{color:theme.text}}
+                />
+                <CheckBox 
+                  title='¿Fuma?'
+                  checked={values.smoke}
+                  onPress={()=>setFieldValue('age',!values.smoke)}
+                  containerStyle={{backgroundColor:theme.background}}
+                  textStyle={{color:theme.text}}
+                />
+                <ThemedSlider 
+                  label='Frecuencia con la que realiza actividades fisicas'
+                  value={values.excercise}
+                  onChange={()=>setFieldValue('excercise',values)}
+                />
+              </View>
+              <Button 
+                title='Guardar'
+                onPress={()=>handleSubmit()}
+                buttonStyle={{backgroundColor:theme.tint,height:50,borderRadius:25}}
               />
             </View>
-            <Divider />
-            <View>
-              <ThemedSlider  
-                label="¿Qué tanta cafeina consume del 1 al 100?"
-              />
-              <CheckBox 
-                title='¿Toma alcohol?'
-                checked
-                onPress={()=>{}}
-              />
-              <CheckBox 
-                title='¿Fuma?'
-                checked
-                onPress={()=>{}}
-
-              />
-              <ThemedSlider 
-                label='Frecuencia con la que realiza actividades fisicas'
-              />
-            </View>
-          </View>
-        )}
-
-      </Formik>
+          )}
+        </Formik>
+      </View>
     </ThemedView>
   )
- 
 }
