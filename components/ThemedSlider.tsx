@@ -2,27 +2,20 @@ import { Slider } from "@rneui/themed"
 import { View } from "react-native"
 import { ThemedText } from "./ThemedText"
 import Icon from '@expo/vector-icons/MaterialIcons'
+import { useThemeColor } from "@/hooks/useThemeColor"
 
 interface PropsThemedSlider {
-  value?:number,
+  value:number,
   onChange:(value:number)=>void
   label:string
-  min?:number
-  max?:number
-  step?:number
+  min:number
+  max:number
+  step:number
 }
 
-export const ThemedSlider = ({label,onChange,value=1,max=10,min=0,step=1}:PropsThemedSlider)=>{
-  const interpolate = (start: number, end: number) => {
-    let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
-    return Math.ceil((1 - k) * start + k * end) % 256;
-  };
-  const color = () => {
-    let r = interpolate(255, 0);
-    let g = interpolate(0, 255);
-    let b = interpolate(0, 0);
-    return `rgb(${r},${g},${b})`;
-  };
+export const ThemedSlider = ({label,onChange,value,max,min,step}:PropsThemedSlider)=>{
+  const theme = useThemeColor()
+  
   return(
     <View>
       <ThemedText type='text'>{label}</ThemedText>
@@ -37,14 +30,14 @@ export const ThemedSlider = ({label,onChange,value=1,max=10,min=0,step=1}:PropsT
         thumbStyle={{ height: 20, width: 20, backgroundColor: 'transparent' }}
         thumbProps={{
           children: (
-            <Icon
-              name="local-drink"
-              type="font-awesome"
-              size={20}
-              reverse
-              containerStyle={{ bottom: 20, right: 20 }}
-              color={color()}
-            />
+           <View style={{width:25,height:25,
+            borderRadius:'50%',
+            backgroundColor:theme.tint,
+            alignItems:'center',
+            justifyContent:'center'
+          }}>
+            <ThemedText type='text'>{value}</ThemedText>
+            </View>
           ),
         }}
       />

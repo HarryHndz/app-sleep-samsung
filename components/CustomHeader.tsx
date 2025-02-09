@@ -8,7 +8,7 @@ import { View } from "react-native";
 export const CustomHeader = ()=>{
   const theme = useThemeColor()
   return(
-    <ThemedView style={{backgroundColor:theme.header,flex:1,flexDirection:'column'}}>
+    <ThemedView style={{width:'100%',height:95,padding:10,backgroundColor:theme.header,flexDirection:'column'}}>
       <View style={{flexDirection:'row',width:'100%',justifyContent:'center'}}>
         <View style={{flexDirection:'row',width:'80%',columnGap:7}}>
           <Avatar

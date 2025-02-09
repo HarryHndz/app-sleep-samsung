@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native"
+import { View } from "react-native"
 import { Input, InputProps } from "@rneui/themed"
 import { useThemeColor } from "@/hooks/useThemeColor"
 import { useState } from "react"
@@ -11,7 +11,7 @@ export const ThemedInput =({typePassword=false,onBlur,...props}:ThemedInputProps
   const [focusable,setFocusable] = useState<boolean>(false)
   return(
     <View>
-      <Input 
+      <Input   
         inputContainerStyle={[
           {backgroundColor:theme.title},
           focusable ? {borderRadius:7,borderWidth:2,borderColor:theme.tint} : {borderRadius:7}

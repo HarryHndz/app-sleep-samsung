@@ -24,7 +24,7 @@ export default function TabLayout() {
             headerStyle:{
               height:120
             },
-            headerTitle:(props)=> <CustomHeader />
+            header:(props)=> <CustomHeader />
           }}
         />
         <Tabs.Screen 

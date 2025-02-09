@@ -5,8 +5,9 @@ import { ThemedView } from "@/components/ThemedView";
 import { IRegister } from "@/data/interfaces/IAuth";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Button, CheckBox, Divider } from "@rneui/themed";
+import { Link } from "expo-router";
 import { Formik } from "formik";
-import { Dimensions, View } from "react-native";
+import { Dimensions, Pressable, TouchableOpacity, View } from "react-native";
 
 export default function Register() {
   const width = (Dimensions.get('window').width * 85) /100
@@ -37,6 +38,7 @@ export default function Register() {
           initialValues={initialValues}
           onSubmit={handleSubmit}
           // validationSchema={handleValidate}
+          enableReinitialize
         >
           {({isSubmitting,handleBlur,handleChange,handleReset,setFieldValue,errors,values})=>(
             <View>
@@ -80,29 +82,42 @@ export default function Register() {
               <View style={{marginVertical:10}}>
                 <ThemedSlider
                   value={values.caffeine}
-                  onChange={(value)=>setFieldValue('caffeine',value)}  
+                  max={10}
+                  min={0}
+                  step={1}
+                  onChange={(value)=>setFieldValue('caffeine',Math.round(value))
+                  }  
                   label="¿Qué tanta cafeina consume del 1 al 100?"
                 />
                 <CheckBox 
                   title='¿Toma alcohol?'
                   checked={values.drink}
-                  onPress={()=>setFieldValue('age',!values.drink)}
+                  onPress={()=>setFieldValue('drink',!values.drink)}
                   containerStyle={{backgroundColor:theme.background}}
                   textStyle={{color:theme.text}}
                 />
                 <CheckBox 
                   title='¿Fuma?'
                   checked={values.smoke}
-                  onPress={()=>setFieldValue('age',!values.smoke)}
+                  onPress={()=>setFieldValue('smoke',!values.smoke)}
                   containerStyle={{backgroundColor:theme.background}}
                   textStyle={{color:theme.text}}
                 />
                 <ThemedSlider 
                   label='Frecuencia con la que realiza actividades fisicas'
                   value={values.excercise}
-                  onChange={()=>setFieldValue('excercise',values)}
+                  max={10}
+                  min={0}
+                  step={1}
+                  onChange={(value)=>setFieldValue('excercise',Math.round(value))
+                  }
                 />
               </View>
+              <Link href='/' style={{marginTop:5,marginBottom:20}} asChild>
+                <TouchableOpacity>
+                  <ThemedText type='text'>Iniciar sesión</ThemedText>
+                </TouchableOpacity>
+              </Link>
               <Button 
                 title='Guardar'
                 onPress={()=>handleSubmit()}

@@ -4,7 +4,7 @@ import { Link, router } from "expo-router";
 import {Button} from '@rneui/themed'
 import { ThemedInput } from "@/components/ThemedInput";
 import {Formik} from 'formik'
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { ILogin } from "@/data/interfaces/IAuth";
 import { useThemeColor } from "@/hooks/useThemeColor";
 export default function Login() {
@@ -56,8 +56,10 @@ export default function Login() {
               typePassword
 
             />
-            <Link href='/register'>
-              <ThemedText type='text'>Crear una cuenta</ThemedText>
+            <Link href='/register' asChild>
+              <TouchableOpacity>
+                <ThemedText type='text'>Crear una cuenta</ThemedText>
+              </TouchableOpacity>
             </Link>               
             <Button 
               title='Ingresar'
