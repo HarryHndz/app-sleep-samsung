@@ -3,9 +3,10 @@ import { ThemedView } from "@/components/ThemedView"
 import { useThemeColor } from "@/hooks/useThemeColor";
 import Icon from '@expo/vector-icons/MaterialIcons';
 import { Avatar } from "@rneui/themed";
-import { View } from "react-native";
+import { router } from "expo-router";
+import { TouchableOpacity, View } from "react-native";
 
-export const CustomHeader = ()=>{
+export const HeaderHome = ()=>{
   const theme = useThemeColor()
   return(
     <ThemedView style={{width:'100%',height:95,padding:10,backgroundColor:theme.header,flexDirection:'column'}}>
@@ -21,14 +22,16 @@ export const CustomHeader = ()=>{
             <ThemedText type="subtitle">Harry Hernández</ThemedText>
           </View>
         </View>
-        <View style={{width:'20%',justifyContent:'center',alignItems:'center'}}>
+        <TouchableOpacity style={{width:'20%',justifyContent:'center',alignItems:'center'}}>
           <Icon name="notifications-active" size={35} color={theme.tint} />
-        </View>
+        </TouchableOpacity>
       </View>
-      <View style={{flexDirection:'row',marginTop:5,alignItems:'center',columnGap:3}}>
+      <TouchableOpacity
+        onPress={()=>router.navigate('/(tabs)/activities')} 
+        style={{flexDirection:'row',marginTop:5,alignItems:'center',columnGap:3}}>
         <ThemedText type="text">Agregar actividades del día</ThemedText>
         <Icon name="arrow-forward-ios" size={15} color={theme.text} />
-      </View>
+      </TouchableOpacity>
     </ThemedView>
   )
 }

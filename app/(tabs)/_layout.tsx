@@ -1,8 +1,9 @@
-import { CustomHeader } from '@/components/CustomHeader';
+import { HeaderHome } from '@/components/HeaderHome';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import Icon from '@expo/vector-icons/MaterialIcons';
+import { HeaderStatistics } from '@/components/HeaderStatistics';
 
 export default function TabLayout() {
   const theme = useThemeColor()
@@ -21,10 +22,7 @@ export default function TabLayout() {
                 color={focused ? theme.tint :theme.text} 
               />
             ),
-            headerStyle:{
-              height:120
-            },
-            header:(props)=> <CustomHeader />
+            header:(props)=> <HeaderHome />
           }}
         />
         <Tabs.Screen 
@@ -37,6 +35,7 @@ export default function TabLayout() {
                 color={focused ? theme.tint :theme.text} 
                 />
             ),
+            headerShown:false
           }}
         />
         <Tabs.Screen 
@@ -49,6 +48,7 @@ export default function TabLayout() {
                 color={focused ? theme.tint :theme.text} 
                 />
             ),
+            header:(props)=> <HeaderStatistics/>
           }}
         />
         <Tabs.Screen 
@@ -61,6 +61,7 @@ export default function TabLayout() {
                 color={focused ? theme.tint :theme.text} 
                 />
             ),
+            headerShown:false
           }}
         />
     </Tabs>
