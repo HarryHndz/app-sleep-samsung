@@ -13,7 +13,7 @@ export const HeaderHome = ()=>{
       <View style={{flexDirection:'row',width:'100%',justifyContent:'center'}}>
         <View style={{flexDirection:'row',width:'80%',columnGap:7}}>
           <Avatar
-            source={{uri:'https://static.vecteezy.com/system/resources/previews/004/819/327/non_2x/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg'}}
+            source={require('@/assets/images/avatar.jpg')}
             size='medium'
             rounded
           />

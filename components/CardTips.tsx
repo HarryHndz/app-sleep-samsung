@@ -13,7 +13,7 @@ export const CardTips = ({title,text,uri,stylesContainer,stylesImage}:PropsCardT
   return(
     <ThemedView style={stylesDefault.container ?? stylesContainer}>
       <Image
-        source={{uri}}
+        source={require('@/assets/images/sleep.png')}
         style={stylesImage ?? stylesDefault.image}
       />
       <ThemedView style={stylesDefault.containerInfo}>

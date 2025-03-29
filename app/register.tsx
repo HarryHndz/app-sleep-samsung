@@ -1,13 +1,13 @@
 import { ThemedInput } from "@/components/ThemedInput";
-import { ThemedSlider } from "@/components/ThemedSlider";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IRegister } from "@/data/interfaces/IAuth";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { Button, CheckBox, Divider } from "@rneui/themed";
+import { loginService, registerService } from "@/services/authService";
+import { Button, Divider } from "@rneui/themed";
 import { Link } from "expo-router";
 import { Formik } from "formik";
-import { Dimensions, Pressable, TouchableOpacity, View } from "react-native";
+import { Dimensions, TouchableOpacity, View } from "react-native";
 
 export default function Register() {
   const width = (Dimensions.get('window').width * 85) /100
@@ -19,13 +19,21 @@ export default function Register() {
     age:'',
     weight:'',
     gender:'',
-    caffeine:0,
-    drink:false,
-    smoke:false,
-    excercise:0
   }
-  const handleSubmit = async()=>{}
-  const handleValidate = ()=>{}
+  const handleSubmit = async(values:IRegister)=>{
+    try {
+      const response = await registerService(values)
+      console.log(response)
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+    
+  }
+  // const handleValidate = ()=>{
+
+  // }
   return(
     <ThemedView style={{flex:1,width:'100%',height:'100%',
       backgroundColor:theme.header,
@@ -40,7 +48,7 @@ export default function Register() {
           // validationSchema={handleValidate}
           enableReinitialize
         >
-          {({isSubmitting,handleBlur,handleChange,handleReset,setFieldValue,errors,values})=>(
+          {({isSubmitting,handleBlur,handleChange,handleReset,setFieldValue,errors,values,handleSubmit})=>(
             <View>
               <View>
                 <ThemedInput 
@@ -77,42 +85,9 @@ export default function Register() {
                   containerStyle={{width:(width/2)}}
                 />
                 </View>
+                
               </View>
               <Divider />
-              <View style={{marginVertical:10}}>
-                <ThemedSlider
-                  value={values.caffeine}
-                  max={10}
-                  min={0}
-                  step={1}
-                  onChange={(value)=>setFieldValue('caffeine',Math.round(value))
-                  }  
-                  label="¿Qué tanta cafeina consume del 1 al 100?"
-                />
-                <CheckBox 
-                  title='¿Toma alcohol?'
-                  checked={values.drink}
-                  onPress={()=>setFieldValue('drink',!values.drink)}
-                  containerStyle={{backgroundColor:theme.background}}
-                  textStyle={{color:theme.text}}
-                />
-                <CheckBox 
-                  title='¿Fuma?'
-                  checked={values.smoke}
-                  onPress={()=>setFieldValue('smoke',!values.smoke)}
-                  containerStyle={{backgroundColor:theme.background}}
-                  textStyle={{color:theme.text}}
-                />
-                <ThemedSlider 
-                  label='Frecuencia con la que realiza actividades fisicas'
-                  value={values.excercise}
-                  max={10}
-                  min={0}
-                  step={1}
-                  onChange={(value)=>setFieldValue('excercise',Math.round(value))
-                  }
-                />
-              </View>
               <Link href='/' style={{marginTop:5,marginBottom:20}} asChild>
                 <TouchableOpacity>
                   <ThemedText type='text'>Iniciar sesión</ThemedText>
@@ -122,6 +97,7 @@ export default function Register() {
                 title='Guardar'
                 onPress={()=>handleSubmit()}
                 buttonStyle={{backgroundColor:theme.tint,height:50,borderRadius:25}}
+                loading={isSubmitting}
               />
             </View>
           )}
